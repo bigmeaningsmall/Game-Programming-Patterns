@@ -1,28 +1,51 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class MyAgent_StateController : MonoBehaviour
+namespace Pattern_Examples.State
 {
-    public MyAgent agent;
-    public Transform moveTarget;
-
-    private void Update()
+    public class MyAgent_StateController : MonoBehaviour
     {
-        if (agent == null) return;
+        // Support a list of agents so we can change many at once from the inspector.
+        // Keep the single-agent field for backward compatibility (old scenes).
+        public List<MyAgent> agents = new List<MyAgent>();
+        public Transform moveTarget;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            agent.ChangeState(new State_Idle(agent));
-            Debug.Log("[Controller] 1 → Idle");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            agent.ChangeState(new State_MoveToTarget(agent, moveTarget));
-            Debug.Log("[Controller] 2 → MoveToTarget");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            agent.ChangeState(new State_Patrol(agent));
-            Debug.Log("[Controller] 3 → Patrol");
+        private void Update(){
+
+            if (agents == null || agents.Count == 0) return;
+
+            if (Input.GetKeyDown(KeyCode.Alpha1)){
+                foreach (var a in agents){
+                    if (a == null) continue;
+                    a.ChangeState(new State_Idle(a));
+                }
+
+                Debug.Log($"[Controller] Changed {agents.Count} agent(s) → Idle");
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2)){
+                foreach (var a in agents){
+                    if (a == null) continue;
+                    a.ChangeState(new State_MoveToTarget(a, moveTarget));
+                }
+
+                Debug.Log($"[Controller] Changed {agents.Count} agent(s) → MoveToTarget");
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3)){
+                foreach (var a in agents){
+                    if (a == null) continue;
+                    a.ChangeState(new State_Patrol(a));
+                }
+
+                Debug.Log($"[Controller] Changed {agents.Count} agent(s) → Patrol");
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha4)){
+                foreach (var a in agents){
+                    if (a == null) continue;
+                    a.ChangeState(new State_Seek(a, moveTarget));
+                }
+
+                Debug.Log($"[Controller] Changed {agents.Count} agent(s) → Seek");
+            }
         }
     }
 }
