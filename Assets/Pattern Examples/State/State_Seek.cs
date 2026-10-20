@@ -9,6 +9,7 @@ using UnityEngine;
 /// This gives a more natural, momentum-based chase that
 /// can tune with maxSpeed and steerStrength.
 /// </summary>
+
 public class State_Seek : IState
 {
     private readonly MyAgent agent;
