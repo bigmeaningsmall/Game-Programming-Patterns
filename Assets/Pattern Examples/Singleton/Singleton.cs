@@ -62,8 +62,10 @@ public class Singleton : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (instance == this)
+        if (instance == this){
             isShuttingDown = true;
+        }
+            
     }
 
     // --- Example data & UI display ---
