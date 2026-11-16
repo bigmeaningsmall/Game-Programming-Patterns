@@ -8,9 +8,13 @@ public class DataSerialisationManager : MonoBehaviour
 
     [Header("Data To Save")]
     public DataObject currentData = new DataObject();
+    
 
-    //private string FilePath => Path.Combine(Application.persistentDataPath, fileName);
-    private string FilePath => Path.Combine("D:\\SaveLog", fileName);
+    // this filepath may be hidden on a machine under : C Drive / Users / Name / appData / LocalLow (Persistant data  is a standard save path on any OS)
+    private string FilePath => Path.Combine(Application.persistentDataPath, fileName);
+    
+    // use this one if you want to save to your D drive and not the hidden persistent data path
+    //private string FilePath => Path.Combine("D:\\SaveLog", fileName);
 
 
     public void Save()

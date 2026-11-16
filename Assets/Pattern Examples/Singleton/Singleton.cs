@@ -5,7 +5,7 @@ public class Singleton : MonoBehaviour
 {
     private static Singleton instance;
     private static bool isShuttingDown = false;
-
+    
     public static Singleton Instance
     {
         get
